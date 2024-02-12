@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import PoemCard from "../components/PoemCard.astro"
+
+const poemCollection = await getCollection("poemCollection");
+---
+
+<Layout title="Early 20s - Andrijan Tasevski">
+	<main class="flex flex-col gap-20">
+	<section class="flex flex-col gap-5">
+		<h1 class="text-6xl font-bold">Early 20s</h1>
+
+		<p class="text-lg">by Andrijan Tasevski</p>
+	</section>
+
+	<ul>
+		{poemCollection.map(poem => (
+			<PoemCard poem={poem} />
+		))}
+	</ul>
+</main>
+</Layout>
