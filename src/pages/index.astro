@@ -5,7 +5,7 @@ import PoemCard from "../components/PoemCard.astro";
 
 const poemCollection = await getCollection("poemCollection");
 
-const poemCollectionOrdered = poemCollection.toSorted(
+const poemCollectionOrdered = poemCollection.map(poemCollection => poemCollection).sort(
   (a, b) => Number(a.slug.split("-")[0]) - Number(b.slug.split("-")[0])
 );
 ---
