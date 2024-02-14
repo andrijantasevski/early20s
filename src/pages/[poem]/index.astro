@@ -2,6 +2,8 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
+const poemCollection = await getCollection("poemCollection");
+
 export async function getStaticPaths() {
   const poemCollection = await getCollection("poemCollection");
 
@@ -16,15 +18,97 @@ export async function getStaticPaths() {
 const { poem } = Astro.props;
 
 const { Content } = await poem.render();
+
+const poemCollectionOrdered = poemCollection
+  .map((poemCollection) => poemCollection)
+  .sort((a, b) => Number(a.slug.split("-")[0]) - Number(b.slug.split("-")[0]));
+
+const currentPoemIndex = poemCollectionOrdered.findIndex(
+  (currentPoem) => currentPoem.id === poem.id
+);
+
+const previousPoem = poemCollectionOrdered[currentPoemIndex - 1];
+
+const nextPoem = poemCollectionOrdered[currentPoemIndex + 1];
 ---
 
 <Layout title={`${poem.data.title} -  Andrijan Tasevski`}>
   <main>
     <article class="flex flex-col gap-5">
-      <h1 class="text-4xl font-bold">{poem.data.title}</h1>
+      <a href="/" class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <>
+            <path d="M6 8L2 12L6 16" />
+            <path d="M2 12H22" />
+          </>
+        </svg>
+        Home
+      </a>
+      <h1 class="text-2xl font-bold">{poem.data.title}</h1>
 
-      <div class="text-lg leading-relaxed">
+      <div class="leading-relaxed">
         <Content />
+      </div>
+
+      <div class="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
+        {
+          previousPoem && (
+            <a href={previousPoem.slug} class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <>
+                  <path d="M6 8L2 12L6 16" />
+                  <path d="M2 12H22" />
+                </>
+              </svg>
+              {previousPoem.data.title}
+            </a>
+          )
+        }
+
+        {
+          nextPoem && (
+            <a href={nextPoem.slug} class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+              <span>{nextPoem.data.title}</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <>
+                  <path d="M18 8L22 12L18 16" />
+                  <path d="M2 12H22" />
+                </>
+              </svg>
+            </a>
+          )
+        }
       </div>
     </article>
   </main>
