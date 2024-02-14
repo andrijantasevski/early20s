@@ -21,8 +21,17 @@ const { title } = Astro.props;
         basic: {
           title,
           type: "website",
-          image: "/og/early20s-og.png",
+          image: "https://early20s.andrijan.dev/og/early20s-og.png",
+          url: "https://early20s.andrijan.dev/",
         },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "https://early20s.andrijan.dev/",
+        title,
+        description: "A collection of poems written by Andrijan Tasevski.",
+        image: "https://early20s.andrijan.dev/og/early20s-og.png",
+        creator: "@_andrijan",
       }}
     />
     <meta name="generator" content={Astro.generator} />
