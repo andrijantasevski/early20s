@@ -24,7 +24,7 @@ const poemCollectionOrdered = poemCollection
   .sort((a, b) => Number(a.slug.split("-")[0]) - Number(b.slug.split("-")[0]));
 
 const currentPoemIndex = poemCollectionOrdered.findIndex(
-  (currentPoem) => currentPoem.id === poem.id
+  (currentPoem) => currentPoem.id === poem.id,
 );
 
 const previousPoem = poemCollectionOrdered[currentPoemIndex - 1];
@@ -32,10 +32,13 @@ const previousPoem = poemCollectionOrdered[currentPoemIndex - 1];
 const nextPoem = poemCollectionOrdered[currentPoemIndex + 1];
 ---
 
-<Layout title={`${poem.data.title} -  Andrijan Tasevski`}>
+<Layout title={`${poem.data.title} | Early 20s - Andrijan Tasevski`}>
   <main>
     <article class="flex flex-col gap-5">
-      <a href="/" class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+      <a
+        href="/"
+        class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -48,8 +51,8 @@ const nextPoem = poemCollectionOrdered[currentPoemIndex + 1];
           stroke-linejoin="round"
         >
           <>
-            <path d="M6 8L2 12L6 16" />
-            <path d="M2 12H22" />
+            <path d="M6 8L2 12L6 16"></path>
+            <path d="M2 12H22"></path>
           </>
         </svg>
         Home
@@ -63,7 +66,10 @@ const nextPoem = poemCollectionOrdered[currentPoemIndex + 1];
       <div class="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
         {
           previousPoem && (
-            <a href={`/${previousPoem.slug}`} class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+            <a
+              href={`/${previousPoem.slug}`}
+              class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -87,7 +93,10 @@ const nextPoem = poemCollectionOrdered[currentPoemIndex + 1];
 
         {
           nextPoem && (
-            <a href={`/${nextPoem.slug}`} class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors">
+            <a
+              href={`/${nextPoem.slug}`}
+              class="inline-flex items-center text-foreground/70 gap-2 lg:hover:text-foreground transition-colors"
+            >
               <span>{nextPoem.data.title}</span>
 
               <svg

@@ -5,9 +5,9 @@ import PoemCard from "../components/PoemCard.astro";
 
 const poemCollection = await getCollection("poemCollection");
 
-const poemCollectionOrdered = poemCollection.map(poemCollection => poemCollection).sort(
-  (a, b) => Number(a.slug.split("-")[0]) - Number(b.slug.split("-")[0])
-);
+const poemCollectionOrdered = poemCollection
+  .map((poemCollection) => poemCollection)
+  .sort((a, b) => Number(a.slug.split("-")[0]) - Number(b.slug.split("-")[0]));
 ---
 
 <Layout title="Early 20s - Andrijan Tasevski">
